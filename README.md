@@ -46,19 +46,23 @@ docker run -d \
   --env-file /root/validator.env \
   --name elixir \
   --restart unless-stopped \
+  -p 17690:17690 \
   elixirprotocol/validator
 
 # mac/amd 架构
 docker run -d \
   --env-file /root/validator.env \
   --name elixir \
+  --restart unless-stopped \
   --platform linux/amd64 \
+  -p 17690:17690 \
   elixirprotocol/validator
 
 # testnet
 docker run -d \
   --env-file /path/to/validator.env \
   --name elixir \
+  --restart unless-stopped \
   -p 17690:17690 \
   elixirprotocol/validator:testnet
 ```
