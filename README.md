@@ -16,7 +16,7 @@
 ## 一键部署代码
 
 ```bash
-curl -O elixir.sh https://raw.githubusercontent.com/alchemyfinance/Elixir/main/elixir.sh && chmod +x elixir.sh && ./elixir.sh
+curl -O elixir.sh https://raw.githubusercontent.com/alchemyfinance/Elixir/refs/heads/main/elixir.sh && chmod +x elixir.sh && ./elixir.sh
 ```
 
 ## 手动部署
