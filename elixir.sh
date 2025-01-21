@@ -83,6 +83,20 @@ EOF
         display_main_menu
 }
 
+# 查看 Docker 日志功能
+function check_docker_logs() {
+    echo "查看 Elixir Docker 容器的日志..."
+    docker logs -f --tail=50 elixir
+}
+
+# 删除 Docker 容器功能
+function delete_docker_container() {
+    echo "正在删除 Elixir Docker 容器，预计时间 30s..."
+    docker stop elixir
+    docker rm elixir
+    echo "Elixir Docker 容器已删除。"
+}
+
 # 测试节点安装
 function install_testnet_node() {
     check_and_install_docker
@@ -113,7 +127,7 @@ EOF
         # 在 Apple/ARM 架构上运行
         docker run -it -d \
           --env-file test_validator.env \
-          --name elixir \
+          --name elixir-test \
           --platform linux/amd64 \
           --restart unless-stopped \
           elixirprotocol/validator:testnet
@@ -121,7 +135,7 @@ EOF
         # 默认运行
         docker run -it -d \
           --env-file test_validator.env \
-          --name elixir \
+          --name elixir-test \
           --restart unless-stopped \
           elixirprotocol/validator:testnet
     fi
@@ -134,16 +148,16 @@ EOF
 }
 
 # 查看 Docker 日志功能
-function check_docker_logs() {
+function check_docker_test_logs() {
     echo "查看 Elixir Docker 容器的日志..."
-    docker logs -f --tail=50 elixir
+    docker logs -f --tail=50 elixir-test
 }
 
 # 删除 Docker 容器功能
-function delete_docker_container() {
+function delete_docker_test_container() {
     echo "正在删除 Elixir Docker 容器，预计时间 30s..."
-    docker stop elixir
-    docker rm elixir
+    docker stop elixir-test
+    docker rm elixir-test
     echo "Elixir Docker 容器已删除。"
 }
 
@@ -167,19 +181,23 @@ function display_main_menu() {
     echo ""
     echo "请选择要执行的操作："
     echo "1. 安装 Elixir 主网节点"
-    echo "2. 安装 Elixir 测试节点"
-    echo "3. 查看 Docker 日志"
-    echo "4. 删除 Elixir Docker 容器"
+    echo "2. 查看主网日志"
+    echo "3. 删除主网容器"
+    echo "4. 安装 Elixir 测试节点"
+    echo "5. 查看测试节点日志"
+    echo "6. 删除测试节点容器"
     echo "0. 退出"
     read -p "请输入选项（0-4）: " OPTION
 
     case $OPTION in
     1) install_node ;;
-    2) install_testnet_node ;;
-    3) check_docker_logs ;;
-    4) delete_docker_container ;;
+    2) check_docker_logs ;;
+    3) delete_docker_container ;;
+    4) install_testnet_node ;;
+    5) check_docker_test_logs ;;
+    6) delete_docker_test_container ;;
     0) exit 0 ;;
-    *) echo "无效的选项，请输入 0-4 之间的数字。" ;;
+    *) echo "无效的选项，请输入 0-6 之间的数字。" ;;
     esac
 }
 
