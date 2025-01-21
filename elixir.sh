@@ -163,7 +163,7 @@ function display_main_menu() {
     echo -e "${GREEN}油管频道:${RESET} ${CYAN}https://www.youtube.com/@alchemyfinance/"${RESET};
     echo -e "${GREEN}法师社群:${RESET} ${CYAN}https://t.me/ytalchemy/"${RESET};
     echo ""
-    echo "${BLUE}===================== Elixir 节点安装=========================${RESET}"
+    echo -e "${BLUE}===================== Elixir 节点安装=========================${RESET}"
     echo ""
     echo "请选择要执行的操作："
     echo "1. 安装 Elixir 主网节点"
