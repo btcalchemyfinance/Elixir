@@ -20,24 +20,40 @@ curl -O elixir.sh https://raw.githubusercontent.com/alchemyfinance/Elixir/main/e
 ```
 
 ## 手动部署
+### 安装 docker 并拉取 docker 镜像
 - 使用指令`apt install docker.io`安装 docker
 - 测试节点：安装之后使用指令`docker pull elixirprotocol/validator:testnet`获取 docker 镜像
 - 主网节点：安装之后使用指令`docker pull elixirprotocol/validator`获取 docker 镜像
-
+### 创建 .env 配置文件
+- 使用指令`nano validator.env`创建并输入以下内容
 ```bash
-# x86
+# 有效环境是“prod”和“testnet”
+ENV=testnet
+
+# 允许的字符 A-Z、a-z、0-9、_、-和空格
+STRATEGY_EXECUTOR_DISPLAY_NAME=<自定义名字>
+
+# 该验证者接收 ELX 奖励的以太坊地址
+STRATEGY_EXECUTOR_BENEFICIARY=<以太坊钱包地址>
+
+# 仅用于此验证器的私钥。注意：不以“0x”开头
+SIGNER_PRIVATE_KEY=<对应的私钥>
+```
+### 运行
+```bash
+# x86 架构
 docker run -d \
   --env-file /root/validator.env \
   --name elixir \
   --restart unless-stopped \
-  elixirprotocol/validator:testnet
+  elixirprotocol/validator
 
-# mac/amd
+# mac/amd 架构
 docker run -d \
   --env-file /root/validator.env \
   --name elixir \
   --platform linux/amd64 \
-  elixirprotocol/validator:testnet
+  elixirprotocol/validator
 
 # testnet
 docker run -d \
